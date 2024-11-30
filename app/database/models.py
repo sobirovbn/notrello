@@ -22,3 +22,5 @@ class TasksTable(Base):
   title: Mapped[str]
   description: Mapped[str]
   status: Mapped[str]
+  beginning: Mapped[str]
+  deadline: Mapped[str]
