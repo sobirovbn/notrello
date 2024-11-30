@@ -117,13 +117,15 @@ class DataBase():
           session.delete(task)
         session.commit()
 
-  def addTask(self, board_id : int, title : str, description : str, status : str):
+  def addTask(self, board_id : int, title : str, description : str, status : str, beginning : str, deadline : str):
     with session_factory() as session:
       new_task = TasksTable(
         board_id=board_id,
         title=title,
         description=description,
-        status=status
+        status=status,
+        beginning=beginning,
+        deadline=deadline
       )
       session.add(new_task)
       session.commit()
@@ -158,10 +160,22 @@ class DataBase():
       result = session.get(TasksTable, task_id)
       result.status = status
       session.commit()
+  
+  def editTaskBeginning(self, task_id : int, beginning : str):
+    with session_factory() as session:
+      result = session.get(TasksTable, task_id)
+      result.beginning = beginning
+      session.commit()
+  
+  def editTaskDeadline(self, task_id : int, deadline : str):
+    with session_factory() as session:
+      result = session.get(TasksTable, task_id)
+      result.deadline = deadline
+      session.commit()
 
   def getTask(self, task_id : int):
     with session_factory() as session:
       result = session.get(TasksTable, task_id)
-      return result.board_id, result.title, result.description, result.status
+      return result.board_id, result.title, result.description, result.status, result.beginning, result.deadline
 
 database = DataBase()

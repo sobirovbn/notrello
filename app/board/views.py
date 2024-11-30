@@ -17,7 +17,7 @@ def get_tasks(form: BoardForm) -> List:
 
 @router.post("/add/task")
 def add_task(form: AddTaskForm) -> Status:
-    return crud.addTask(form.boardid, form.title, form.description, form.status)
+    return crud.addTask(form.boardid, form.title, form.description, form.status, form.beginning, form.deadline)
 
 @router.put("/change/title")
 def change_title(form: ChangeTitleForm) -> Status:

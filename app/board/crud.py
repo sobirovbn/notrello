@@ -6,6 +6,7 @@ Delete
 """
 from app.board.schemas import *
 from app.db import database
+from fn import *
 
 def getBoard(boardid: int) -> Board:
     boardid, userid, title, description = database.getBoard(boardid)
@@ -32,8 +33,10 @@ def changeDesc(boardid: int, new_desc: str) -> Status:
     database.editBoardDescription(boardid, new_desc)
     return success
 
-def addTask(boardid: int, title: str, desc: str, status: str) -> Status:
-    database.addTask(boardid, title, desc, status)
+def addTask(boardid: int, title: str, desc: str, status: str, beginning: str, deadline: str) -> Status:
+    if not (checkTime(beginning) and checkTime(deadline)):
+        return failed
+    database.addTask(boardid, title, desc, status, beginning, deadline)
     return success
 
 def deleteTask(boardid: int, taskid: int) -> Status:

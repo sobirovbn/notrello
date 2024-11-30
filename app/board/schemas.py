@@ -20,6 +20,8 @@ class AddTaskForm(BoardForm):
     title: str
     description: str
     status: str
+    beginning: str
+    deadline: str
 
 class DeleteTaskForm(BoardForm):
     taskid: int
